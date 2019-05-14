@@ -182,8 +182,8 @@ def build_network(input_tensor, regularizer, is_train=True):
         print(pool5_reshaped.get_shape())
 
         fc1_weights = tf.get_variable('weight', [n_nodes, 4096], initializer=tf.truncated_normal_initializer(stddev=0.1))
-        # if regularizer is not None:
-        #     tf.add_to_collection('losses', regularizer(fc1_weights))
+        if regularizer is not None:
+            tf.add_to_collection('losses', regularizer(fc1_weights))
         fc1_biases = tf.get_variable('bias', [4096], initializer=tf.constant_initializer(0.1))
         fc1 = tf.nn.relu(tf.matmul(pool5_reshaped, fc1_weights) + fc1_biases)
         if is_train:
@@ -200,8 +200,8 @@ def build_network(input_tensor, regularizer, is_train=True):
 
     with tf.variable_scope('layer13-fc3'):
         fc3_weights = tf.get_variable('weight', [4096, 1000], initializer=tf.truncated_normal_initializer(stddev=0.1))
-        if regularizer is not None:
-            tf.add_to_collection('losses', regularizer(fc3_weights))
+        # if regularizer is not None:
+        #     tf.add_to_collection('losses', regularizer(fc3_weights))
         fc3_biases = tf.get_variable('bias', [1000], initializer=tf.constant_initializer(0.1))
         fc3 = tf.matmul(fc2, fc3_weights) + fc3_biases
         if is_train:
