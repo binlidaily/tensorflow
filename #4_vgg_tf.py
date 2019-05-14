@@ -37,7 +37,7 @@ mnist = input_data.read_data_sets('./data/', reshape=False)   # 读取数据集
 train_data, train_label = mnist.train.images, mnist.train.labels
 test_data, test_label = mnist.test.images, mnist.test.labels
 
-train_nums, test_nums = 5500, 1000
+train_nums, test_nums = 550, 50
 train_data, train_label = train_data[:train_nums], train_label[:train_nums]
 test_data, test_label = test_data[:test_nums], test_label[:test_nums]
 
