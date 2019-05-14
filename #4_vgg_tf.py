@@ -31,7 +31,7 @@ warnings.filterwarnings('ignore')
 warnings.filterwarnings("ignore",category=DeprecationWarning)
 
 # mnist = input_data.read_data_sets('data/', one_hot=True)   # 读取数据集 这个 one_hot=True 要慎重选啊
-mnist = input_data.read_data_sets('./tensorflow/data/', reshape=False)   # 读取数据集
+mnist = input_data.read_data_sets('./data/', reshape=False)   # 读取数据集
 
 # 读取训练数据及测试数据
 train_data, train_label = mnist.train.images, mnist.train.labels
@@ -182,8 +182,8 @@ def build_network(input_tensor, regularizer, is_train=True):
         print(pool5_reshaped.get_shape())
 
         fc1_weights = tf.get_variable('weight', [n_nodes, 4096], initializer=tf.truncated_normal_initializer(stddev=0.1))
-        if regularizer is not None:
-            tf.add_to_collection('losses', regularizer(fc1_weights))
+        # if regularizer is not None:
+        #     tf.add_to_collection('losses', regularizer(fc1_weights))
         fc1_biases = tf.get_variable('bias', [4096], initializer=tf.constant_initializer(0.1))
         fc1 = tf.nn.relu(tf.matmul(pool5_reshaped, fc1_weights) + fc1_biases)
         if is_train:
@@ -191,8 +191,8 @@ def build_network(input_tensor, regularizer, is_train=True):
 
     with tf.variable_scope('layer12-fc2'):
         fc2_weights = tf.get_variable('weight', [4096, 4096], initializer=tf.truncated_normal_initializer(stddev=0.1))
-        if regularizer is not None:
-            tf.add_to_collection('losses', regularizer(fc2_weights))
+        # if regularizer is not None:
+        #     tf.add_to_collection('losses', regularizer(fc2_weights))
         fc2_biases = tf.get_variable('bias', [4096], initializer=tf.constant_initializer(0.1))
         fc2 = tf.nn.relu(tf.matmul(fc1, fc2_weights) + fc2_biases)
         if is_train:
